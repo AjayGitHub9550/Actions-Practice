@@ -1,0 +1,28 @@
+name: simple ci workflow
+on:
+  workflow_dispatch:
+    inputs:
+      chosen-os:
+        required: true
+        type: choice
+        options:
+        - Ubuntu
+        - macOS
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+jobs:
+  install-dep:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout the code
+      - uses: actions/checkout@v4
+      - name: installing node.js
+      - uses: actions/setup-node@v4
+      - name: installing dependencies
+      - run: npm install
+      - name: testing 
+      - run: npm test
